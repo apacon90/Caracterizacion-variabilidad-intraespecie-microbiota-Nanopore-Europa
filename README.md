@@ -1,1 +1,1 @@
-# Prediccion-de-variabilidad-intraespecie-en-microbiota-intestinal-humana-Nanopore-europea
+# Prediccion de variabilidad intraespecie en microbiota intestinal humana Nanopore europea
