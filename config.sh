@@ -23,3 +23,7 @@ THREADS=40
 MIN_ALN=3000      # minimum alignment length (PAF col11)
 MIN_COV=0.70      # minimum reference coverage (col11/col7)
 MIN_PID=0.85      # minimum sequence identity  (col10/col11)
+
+# --- Parallelization ---
+JOBS=32
+
