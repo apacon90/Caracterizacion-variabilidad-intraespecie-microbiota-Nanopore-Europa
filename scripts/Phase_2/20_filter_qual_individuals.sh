@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-# 20_filter_qual_individuals.sh — Filter variants by quality (SNPs QUAL>=100, INDELs QUAL>=150)
-# Input:  IND_VCF_DIR/{species}.vcf.gz  (from 19_call_individuals_VCF)
+# 21_filter_qual_individuals.sh — Filter variants by quality (SNPs QUAL>=100, INDELs QUAL>=150)
+# Input:  IND_VCF_DIR/{species}.vcf.gz  (from 20_call_individuals_VCF)
 #         REF_DIR/{species}.fa  (from Phase 1)
 # Output: IND_VCF_FILT_DIR/{species}.QUAL_100-150.vcf.gz + .tbi
 #
-# No recurrence filter here (no pools) — only quality thresholds.
-# Usage: bash 20_filter_qual_individuals.sh
+# Usage: bash 21_filter_qual_individuals.sh
 
 set -euo pipefail
 shopt -s nullglob
