@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-# 19_call_individuals_VCF.sh — Joint variant calling across all individuals per species
-# Input:  IND_BAM_DIR/{species}/{country}/{sample}.bam  (from 18_map_individuals)
+# 20_call_individuals_VCF.sh — Joint variant calling across all individuals per species
+# Input:  IND_BAM_DIR/{species}/{country}/{sample}.bam  (from 19_map_individuals)
 #         REF_DIR/{species}.fa  (from Phase 1)
 # Output: IND_VCF_DIR/{species}.vcf.gz + .tbi
 #
 # Joint call: all individuals of a species (all countries) in a single bcftools call.
 # Same parameters as Phase 1 pool calling.
-# Usage: bash 19_call_individuals_VCF.sh
+# Usage: bash 20_call_individuals_VCF.sh
 
 set -euo pipefail
 shopt -s nullglob
