@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# 21_vcf_to_tsv.sh — Export filtered VCFs to TSV format
-# Input:  IND_VCF_FILT_DIR/{species}.QUAL_100-150.vcf.gz  (from 20_filter_qual_individuals)
+# 22_vcf_to_tsv.sh — Export filtered VCFs to TSV format
+# Input:  IND_VCF_FILT_DIR/{species}.QUAL_100-150.vcf.gz  (from 21_filter_qual_individuals)
 # Output: TSV_DIR/{species}.GT.tsv    — genotypes only (CHROM, POS, REF, ALT, GT per individual)
 #         TSV_DIR/{species}.FULL.tsv  — full info (GT, PL, DP, ADF, ADR, AD per individual)
 #
-# Usage: bash 21_vcf_to_tsv.sh
+# Usage: bash 22_vcf_to_tsv.sh
 
 set -euo pipefail
 shopt -s nullglob
