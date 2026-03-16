@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-# 17_extract_reads_ge100_n100.sh — Extract reads per individual and species, subsample to N=100
+# 18_extract_reads_ge100_n100.sh — Extract reads per individual and species, subsample to N=100
 # Input:  PAIRS_FILE (pairs_14bacteria_samples_ge100.tsv, from Phase 0)
 #         MAPPINGS_DIR/*.keep.paf
 #         OUT_TRIMMED/{country}/{sample}.trim{N}.fa
 # Output: FASTA_ALL/{species}/{country}/{species}.{sample}.all.fa
 #         FASTA_N/{species}/{country}/{species}.{sample}.n100.fa
 #
-# Usage: bash 17_extract_reads_ge100_n100.sh
+# Usage: bash 18_extract_reads_ge100_n100.sh
 
 set -euo pipefail
 source "$(dirname "$0")/../config.sh"
