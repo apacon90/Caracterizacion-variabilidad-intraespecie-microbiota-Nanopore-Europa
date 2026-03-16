@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# 18_map_individuals.sh — Map individual reads against species-specific references
-# Input:  FASTA_N/{species}/{country}/{species}.{sample}.n100.fa  (from 17_extract_reads)
+# 19_map_individuals.sh — Map individual reads against species-specific references
+# Input:  FASTA_N/{species}/{country}/{species}.{sample}.n100.fa  (from 18_extract_reads)
 #         REF_DIR/{species}.fa + .mmi  (from Phase 1)
 # Output: IND_BAM_DIR/{species}/{country}/{sample}.bam + .bai
 #
 # Runs up to MAX_JOBS mappings in parallel.
-# Usage: bash 18_map_individuals.sh
+# Usage: bash 19_map_individuals.sh
 
 set -euo pipefail
 shopt -s nullglob
