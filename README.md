@@ -1,4 +1,4 @@
-# Predicción de la variabilidad genética intra-especie en datos de microbiota intestinal humana derivados de secuenciación con Nanoporos en poblaciones europeas
+# CARACTERIZACIÓN DE LA VARIABILIDAD GENÉTICA INTRA-ESPECIE EN DATOS DE MICROBIOTA INTESTINAL HUMANA DERIVADOS DE SECUENCIACIÓN CON NANOPOROS EN POBLACIONES EUROPEAS
 ## Trabajo Fin de Máster en Bioinformática - Universidad de Valencia
 
 ---
