@@ -134,15 +134,6 @@ Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/F
  
 Para ejecutar el flujo de trabajo se requiere: lecturas de secuenciación correspondientes, base de datos GROND, fichero de metadatos de muestras, herramientas bioinformáticas instaladas y rutas locales configuradas.
  
-## Citación
- 
-```
-Parodi Contreras, A.M. (2026). Caracterización de la variabilidad genética intra-especie 
-en datos de microbiota intestinal humana derivados de secuenciación con nanoporos en 
-poblaciones europeas. Trabajo de Fin de Máster, Máster Universitario en Bioinformática, 
-Universitat de València.
-```
- 
 ## Contacto
  
 Ana María Parodi Contreras — [apacon90](https://github.com/apacon90)
