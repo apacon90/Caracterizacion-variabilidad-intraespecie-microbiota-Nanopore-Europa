@@ -133,7 +133,8 @@ Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/F
  
 ## Reproducibilidad
  
-Para ejecutar el flujo de trabajo se requiere: lecturas de secuenciación correspondientes, base de datos GROND, fichero de metadatos de muestras, herramientas bioinformáticas instaladas y rutas locales configuradas.
+El archivo `config.sh` contiene las rutas y parámetros del pipeline. Para ejecutar los scripts, se deben modificar las rutas con las del entorno computacional local.
+Para ejecutar el flujo de trabajo se requiere: lecturas de secuenciación correspondientes, base de datos GROND, fichero de metadatos de muestras, herramientas bioinformáticas instaladas y rutas locales configuradas en `config.sh`.
  
 ## Contacto
  
