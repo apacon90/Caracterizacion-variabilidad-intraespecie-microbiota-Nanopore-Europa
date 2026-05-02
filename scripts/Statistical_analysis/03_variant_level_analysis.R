@@ -1,21 +1,37 @@
 # 03_variant_level_analysis.R — Análisis de variantes por país
-# Input:  RDS de 01_prepare_data.R, ficheros FULL.tsv
-# Output: tabla_final_variantes.csv, heatmap_AF_top20.pdf
+# Input:  RDS de 01_prepare_data.R
+#         phase2_data/variants_tsv/*.FULL.tsv
+# Output: tables/tabla_final_variantes.csv
+#         figures/phase2/heatmap_AF_top20.png
 
 set.seed(42)
-library(tidyverse); library(pheatmap); library(viridisLite)
+library(tidyverse)
+library(pheatmap)
+library(viridis)
 
-setwd("/media/apacon/SSD_APACON/GROND_nr_Rep")
-dir_full <- "2da parte_JAE/bacterias_tsv/variantes_validadas/variantes_validadas_FULL"
-out_dir  <- "/media/apacon/SSD_APACON/1_SCRIPTS_FINALES_TFM/figures_phase2"
+############################################################
+## 0. RUTAS
+############################################################
+base_dir <- "/media/apacon/SSD_APACON/1_SCRIPTS_FINALES_TFM_run_final/GROND_nr_Rep"
+
+dir_full <- file.path(base_dir, "phase2_data", "variants_tsv")
+out_dir  <- file.path(base_dir, "metadata")
+fig_dir  <- file.path(out_dir, "figures", "phase2")
+tab_dir  <- file.path(out_dir, "tables")
 rds_dir  <- file.path(out_dir, "rds")
 
+dir.create(fig_dir, showWarnings = FALSE, recursive = TRUE)
+dir.create(tab_dir, showWarnings = FALSE, recursive = TRUE)
+
+############################################################
+## 1. CARGAR RDS
+############################################################
 meta_qc   <- readRDS(file.path(rds_dir, "meta_qc.rds"))
 mega_main <- readRDS(file.path(rds_dir, "mega_main.rds"))
 Xa_main   <- readRDS(file.path(rds_dir, "Xa_main.rds"))
 
 ############################################################
-## EXTRAER AF DESDE CAMPO AD
+## 2. EXTRAER AF DESDE CAMPO AD
 ############################################################
 extract_af <- function(f, ids, min_dp = 5) {
   df  <- read_tsv(f,
@@ -46,13 +62,17 @@ extract_af <- function(f, ids, min_dp = 5) {
   )
 }
 
-full_files     <- list.files(dir_full, pattern = "FULL_validadas\\.tsv$", full.names = TRUE)
+full_files <- list.files(dir_full, pattern = "FULL\\.tsv$", full.names = TRUE)
+cat("Ficheros FULL encontrados:", length(full_files), "\n")
+
 mega_full_main <- bind_rows(lapply(full_files, extract_af, ids = meta_qc$sample)) %>%
   filter(!grepl("^Ralstonia", Species)) %>%
   filter(VariantID %in% rownames(Xa_main))
 
+cat("Variantes en mega_full_main:", nrow(mega_full_main), "\n")
+
 ############################################################
-## AF MEDIA POR PAÍS
+## 3. AF MEDIA POR PAÍS
 ############################################################
 af_real <- mega_full_main %>%
   select(Species, VariantID, all_of(meta_qc$sample)) %>%
@@ -70,7 +90,7 @@ af_real <- mega_full_main %>%
   arrange(desc(max_diff))
 
 ############################################################
-## FISHER POR VARIANTE
+## 4. FISHER POR VARIANTE
 ############################################################
 fisher_res <- mega_main %>%
   select(Species, VariantID, all_of(meta_qc$sample)) %>%
@@ -95,7 +115,7 @@ cat("Variantes FDR<0.05:", sum(fisher_res$fdr < 0.05, na.rm = TRUE),
     "| FDR<0.10:", sum(fisher_res$fdr < 0.10, na.rm = TRUE), "\n")
 
 ############################################################
-## TABLA FINAL
+## 5. TABLA FINAL
 ############################################################
 tabla_final <- af_real %>%
   left_join(fisher_res %>% select(VariantID, n_Norway, n_Portugal, n_Spain, p_fisher, fdr),
@@ -113,14 +133,14 @@ tabla_final <- af_real %>%
   select(Species, VariantID, AF_Norway, AF_Portugal, AF_Spain,
          n_obs_Norway, n_obs_Portugal, n_obs_Spain, max_diff, p_fisher, fdr, enriched_in)
 
-write_csv(tabla_final, file.path(out_dir, "tabla_final_variantes.csv"))
+write_csv(tabla_final, file.path(tab_dir, "tabla_final_variantes.csv"))
 
 cat("Variantes enriquecidas por país (FDR<0.05):\n")
 tabla_final %>% filter(fdr < 0.05) %>%
   count(enriched_in) %>% print()
 
 ############################################################
-## HEATMAP AF — TOP 20
+## 6. HEATMAP AF — TOP 20
 ############################################################
 top20 <- af_real %>%
   filter(!is.na(AF_Norway), !is.na(AF_Portugal), !is.na(AF_Spain)) %>%
@@ -128,26 +148,48 @@ top20 <- af_real %>%
   mutate(label = paste0(word(Species, 1), "_",
                         str_extract(VariantID, "(?<=\\|)\\d+(?=\\|)")))
 
-mat_heat        <- top20 %>% select(label, AF_Norway, AF_Portugal, AF_Spain) %>%
-  column_to_rownames("label") %>% as.matrix()
+mat_heat <- top20 %>%
+  select(label, AF_Norway, AF_Portugal, AF_Spain) %>%
+  column_to_rownames("label") %>%
+  as.matrix()
+
 colnames(mat_heat) <- c("Noruega", "Portugal", "España")
-ann_row         <- top20 %>% select(label, Species) %>% column_to_rownames("label")
+
+ann_row <- top20 %>% select(label, Species) %>% column_to_rownames("label")
+
+row_labs <- as.expression(
+  lapply(rownames(mat_heat), function(x) bquote(italic(.(x))))
+)
 
 pheatmap(
   mat_heat,
-  cluster_cols = FALSE, cluster_rows = TRUE,
-  annotation_row = ann_row, annotation_names_row = FALSE,
-  color    = viridis(100), breaks = seq(0, 1, length.out = 101),
-  main     = "Frecuencia alélica real por país — Top 20 variantes",
-  fontsize_row = 8, angle_col = 45, border_color = NA,
-  cellwidth = 35, cellheight = 18,
-  filename = file.path(out_dir, "heatmap_AF_top20.pdf"), width = 9, height = 9
+  labels_row       = row_labs,
+  cluster_cols     = FALSE,
+  cluster_rows     = TRUE,
+  annotation_row   = ann_row,
+  annotation_legend     = FALSE,
+  annotation_names_row  = FALSE,
+  color            = viridis(101),
+  breaks           = seq(0, 1, length.out = 101),
+  main             = "Frecuencia alélica media por país\nTop 20 variantes",
+  fontsize_row     = 8,
+  angle_col        = 45,
+  border_color     = NA,
+  cellwidth        = 35,
+  cellheight       = 18,
+  filename         = file.path(fig_dir, "heatmap_AF_top20.png"),
+  width            = 6.5,
+  height           = 7
 )
 
+cat("Heatmap saved\n")
+
 ############################################################
-## GUARDAR RDS
+## 7. GUARDAR RDS
 ############################################################
 saveRDS(af_real,     file.path(rds_dir, "af_real.rds"))
 saveRDS(fisher_res,  file.path(rds_dir, "fisher_res.rds"))
 saveRDS(tabla_final, file.path(rds_dir, "tabla_final.rds"))
+
+cat("Done. Outputs guardados en:", out_dir, "\n")
 
