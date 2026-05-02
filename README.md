@@ -34,10 +34,11 @@ El flujo de trabajo está organizado en tres fases principales y una etapa de an
  
 ```text
 .
-├── Phase_0/
-├── Phase_1/
-├── Phase_2/
-├── Statistical_analysis/
+├── scripts/
+│   ├── Phase_0/
+│   ├── Phase_1/
+│   ├── Phase_2/
+│   └── Statistical_analysis/
 ├── .gitignore
 └── README.md
 ```
