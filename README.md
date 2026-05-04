@@ -34,13 +34,14 @@ El flujo de trabajo está organizado en tres fases principales y una etapa de an
  
 ```text
 .
-├── scripts/
-│   ├── Phase_0/
-│   ├── Phase_1/
-│   ├── Phase_2/
-│   └── Statistical_analysis/
-├── .gitignore
-└── README.md
+├── README.md
+├── config.sh
+├── validated_variants_blast.tsv
+└── scripts/
+    ├── Phase_0/
+    ├── Phase_1/
+    ├── Phase_2/
+    └── Statistical_analysis/
 ```
  
 ## Phase_0
@@ -94,7 +95,7 @@ Esta carpeta incluye scripts para:
  
 - Construcción de la matriz de variantes.
 - Filtrado a variantes validadas.
-- Exclusión de Ralstonia insidiosa del análisis principal.
+- Exclusión de *Ralstonia insidiosa* del análisis principal.
 - Cálculo de distancias Jaccard NA-aware.
 - Análisis PERMANOVA.
 - Análisis de coordenadas principales (PCoA).
@@ -129,7 +130,7 @@ Paquetes principales de R: tidyverse, vegan, ape, ggplot2, ggrepel, pheatmap, rs
  
 ## Archivos no incluidos
  
-Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/FASTQ de gran tamaño, ficheros BAM/SAM, ficheros VCF intermedios, alineamientos PAF, índices de minimap2, bases de datos externas, objetos RDS ni tablas con información individual.
+Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/FASTQ de gran tamaño, ficheros BAM/SAM, ficheros VCF intermedios, alineamientos PAF, índices de minimap2, bases de datos externas, objetos RDS ni tablas con información individual. Se incluye únicamente `validated_variants_blast.tsv` como tabla auxiliar de variantes validadas utilizada por los scripts de análisis.
  
 ## Reproducibilidad
  
