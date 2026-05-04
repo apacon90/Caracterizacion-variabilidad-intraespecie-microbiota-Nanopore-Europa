@@ -104,7 +104,7 @@ Esta carpeta incluye scripts para:
 - Análisis por variante mediante test de Fisher.
 - Corrección por FDR (Benjamini-Hochberg).
 - Cálculo de frecuencias alélicas medias por país.
-- Análisis integrativo mediante `vegan::envfit.
+- Análisis integrativo mediante `vegan::envfit`.
 - PCA exploratorio basado en frecuencias alélicas medias.
 ## Resultados principales
  
