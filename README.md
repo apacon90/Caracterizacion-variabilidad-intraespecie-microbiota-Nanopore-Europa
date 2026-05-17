@@ -130,7 +130,7 @@ Paquetes principales de R: tidyverse, vegan, ape, ggplot2, ggrepel, pheatmap, rs
  
 ## Archivos no incluidos
  
-Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/FASTQ de gran tamaño, ficheros BAM/SAM, ficheros VCF intermedios, alineamientos PAF, índices de minimap2, bases de datos externas, objetos RDS ni tablas con información individual. Se incluye únicamente `validated_variants_blast.tsv` como tabla auxiliar de variantes validadas utilizada por los scripts de análisis.
+Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/FASTQ de gran tamaño, ficheros BAM/SAM, ficheros VCF intermedios, alineamientos PAF, índices de minimap2, objetos RDS ni tablas con información individual.
  
 ## Reproducibilidad
  
