@@ -36,13 +36,27 @@ El flujo de trabajo está organizado en tres fases principales y una etapa de an
 .
 ├── README.md
 ├── config.sh
+├── ALL_species_pool3_variants_with_pools.tsv
+├── Top50_species_abundance_median.tsv
+├── all_variants_blastn_validation.tsv
 ├── validated_variants_blast.tsv
+├── tabla_final_variantes.csv
 └── scripts/
     ├── Phase_0/
     ├── Phase_1/
     ├── Phase_2/
     └── Statistical_analysis/
 ```
+## Descripción de ficheros
+ 
+| Fichero | Descripción |
+|---------|-------------|
+| `config.sh` | Fichero de configuración centralizado con rutas y parámetros del pipeline. |
+| `Top50_species_abundance_median.tsv` | Listado de las 50 especies con mayor mediana de abundancia entre las tres cohortes (Fase 0). |
+| `ALL_species_pool3_variants_with_pools.tsv` | 804 variantes candidatas con genotipos de los 30 pools (10 pools × 3 países), resultado del filtrado por calidad y recurrencia (Fase 1). |
+| `all_variants_blastn_validation.tsv` | Resultados de la validación manual BLASTn de las 804 variantes candidatas contra las bases de datos core_nt y WGS de NCBI (Fase 1). |
+| `validated_variants_blast.tsv` | Subconjunto de 418 variantes validadas con soporte en al menos una base de datos (core_nt o WGS), utilizadas para filtrar la matriz individual (Fase 1 → Fase 2). |
+| `tabla_final_variantes.csv` | Tabla final con frecuencias alélicas medias por país, resultados del test de Fisher (FDR), envfit y clasificación de concordancia para las 105 variantes del análisis principal. |
  
 ## Phase_0
  
@@ -130,12 +144,19 @@ Paquetes principales de R: tidyverse, vegan, ape, ggplot2, ggrepel, pheatmap, rs
  
 ## Archivos no incluidos
  
-Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/FASTQ de gran tamaño, ficheros BAM/SAM, ficheros VCF intermedios, alineamientos PAF, índices de minimap2, objetos RDS ni tablas con información individual.
- 
+Este repositorio no incluye: lecturas crudas de secuenciación, ficheros FASTA/FASTQ de gran tamaño, ficheros BAM/SAM, ficheros VCF intermedios, alineamientos PAF, índices de minimap2, objetos RDS, tablas con información individual de los participantes ni el fichero de metadatos de muestras (sample_metadata.tsv) por razones de protección de datos.
+
 ## Reproducibilidad
  
 El archivo `config.sh` contiene las rutas y parámetros del pipeline. Para ejecutar los scripts, se deben modificar las rutas con las del entorno computacional local.
-Para ejecutar el flujo de trabajo se requiere: lecturas de secuenciación correspondientes, base de datos GROND, fichero de metadatos de muestras, herramientas bioinformáticas instaladas y rutas locales configuradas en `config.sh`.
+ 
+Para ejecutar el flujo de trabajo se requiere:
+ 
+- Lecturas de secuenciación correspondientes.
+- Base de datos GROND (disponible en [Zenodo](https://zenodo.org/records/10889037)).
+- Fichero de metadatos de muestras.
+- Herramientas bioinformáticas instaladas.
+- Rutas locales configuradas en `config.sh`.
  
 ## Contacto
  
