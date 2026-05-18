@@ -140,6 +140,7 @@ Las herramientas principales utilizadas fueron:
 - SeqKit 2.6.1
 - GNU parallel 20210822
 - R 4.5.2
+
 Paquetes principales de R: tidyverse, vegan, ape, ggplot2, ggrepel, pheatmap, rstatix.
  
 ## Archivos no incluidos
